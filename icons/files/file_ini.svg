@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="g_gold" cx="50%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#E5B867" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#E5B867" stop-opacity="0.04"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#g_gold)" stroke="#E5B867" stroke-opacity="0.45" stroke-width="0.75"/>
+  <text x="8" y="9.30" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif"
+        font-size="5.0" font-weight="600" fill="#E5B867"
+        letter-spacing="0.2">INI</text>
+
+</svg>

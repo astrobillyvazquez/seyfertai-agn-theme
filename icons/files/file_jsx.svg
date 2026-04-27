@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="jsx_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#E5B867" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#E5B867" stop-opacity="0.04"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#jsx_g)" stroke="#E5B867" stroke-opacity="0.6" stroke-width="0.8"/>
+  <text x="7" y="10.2" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif"
+        font-size="6.4" font-weight="700" fill="#E5B867" letter-spacing="0.2">JS</text>
+  <path d="M11.5 7.2 L12.1 8.4 L13.4 8.6 L12.45 9.55 L12.7 10.85 L11.5 10.25 L10.3 10.85 L10.55 9.55 L9.6 8.6 L10.9 8.4 Z"
+        fill="#F472B6" opacity="0.9"/>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="rm_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#E5E9F2" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#E5E9F2" stop-opacity="0.03"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#rm_g)" stroke="#E5E9F2" stroke-opacity="0.45" stroke-width="0.75"/>
+  <path d="M3 6 Q5 5.2 8 6 Q11 5.2 13 6 L13 11.5 Q11 10.8 8 11.5 Q5 10.8 3 11.5 Z"
+        fill="#E5E9F2" fill-opacity="0.08" stroke="#E5E9F2" stroke-opacity="0.8" stroke-width="0.7" stroke-linejoin="round"/>
+  <path d="M8 6 L8 11.5" stroke="#E5E9F2" stroke-opacity="0.6" stroke-width="0.55"/>
+  <path d="M4.2 7.3 L6.8 7.0 M4.2 8.3 L6.8 8.1 M4.2 9.3 L6.8 9.2" stroke="#E5E9F2" stroke-opacity="0.5" stroke-width="0.35" stroke-linecap="round"/>
+  <path d="M9.2 7.3 L11.8 7.0 M9.2 8.3 L11.8 8.1 M9.2 9.3 L11.8 9.2" stroke="#E5E9F2" stroke-opacity="0.5" stroke-width="0.35" stroke-linecap="round"/>
+  <path d="M8 3.6 L8.45 4.6 L9.5 4.7 L8.72 5.4 L8.95 6.4 L8 5.88 L7.05 6.4 L7.28 5.4 L6.5 4.7 L7.55 4.6 Z"
+        fill="#E5B867" opacity="0.95"/>
+</svg>

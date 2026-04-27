@@ -1,0 +1,507 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<title>Seyfert AGN — Soft Contrast Variant</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #05080F;
+    color: #E5E9F2;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+    padding: 48px;
+  }
+  header {
+    max-width: 1700px; margin: 0 auto 40px;
+  }
+  h1 {
+    font-size: 38px; margin: 0 0 10px; letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #B6C0F0, #D4B383);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .tagline { color: #94A3B8; font-size: 15px; margin: 0; max-width: 760px; line-height: 1.6; }
+
+  .three-col {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 22px;
+    max-width: 1700px; margin: 0 auto;
+  }
+  .col {
+    background: #0A0F1C;
+    border: 1px solid #242D47;
+    border-radius: 14px;
+    padding: 18px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .col.variant-b { border-color: #B6C0F0; box-shadow: 0 0 40px rgba(182,192,240,0.08); }
+  .col-header { display: flex; flex-direction: column; gap: 4px; }
+  .col-label {
+    font-size: 10.5px; text-transform: uppercase; letter-spacing: 2px;
+    color: #818CF8; font-weight: 600;
+  }
+  .variant-b .col-label { color: #D4B383; }
+  .col h3 { font-size: 16px; margin: 0; color: #F8FAFC; font-weight: 600; }
+
+  .mock {
+    background: var(--bg);
+    border: 1px solid var(--border, #242D47);
+    border-radius: 8px;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 34px 1fr 22px;
+    height: 320px;
+  }
+  .mock-tabs {
+    background: var(--bg0);
+    display: flex; align-items: stretch; font-size: 11px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab {
+    display: flex; align-items: center; gap: 6px;
+    padding: 0 10px; color: var(--tab-inact-fg);
+    background: var(--tab-inact-bg);
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .tab.active { background: var(--bg); color: var(--tab-fg); }
+  .tab.active::before {
+    content:""; position:absolute; top:0; left:0; right:0; height:1.5px;
+    background: var(--gold);
+  }
+  .tab .icon { width: 12px; height: 12px; display: inline-flex; }
+  .tab .icon svg { width: 12px; height: 12px; }
+  .tab .close { color: var(--gold); font-size: 10px; margin-left: 2px; }
+
+  .mock-editor {
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+  .code-scroll {
+    height: 100%;
+    overflow-y: scroll;
+    padding: 12px 14px;
+    scrollbar-gutter: stable;
+  }
+  .code-scroll pre {
+    margin: 0;
+    font-family: "SF Mono", "JetBrains Mono", Menlo, monospace;
+    font-size: 11px; line-height: 1.55;
+    color: var(--fg);
+    white-space: pre;
+  }
+
+  /* Custom scrollbar — mimic each theme's exact scrollbar colors. */
+  .code-scroll::-webkit-scrollbar { width: 14px; }
+  .code-scroll::-webkit-scrollbar-track { background: var(--bg); }
+  .code-scroll::-webkit-scrollbar-thumb {
+    background: var(--slider);
+    border-radius: 0;
+    border: 3px solid var(--bg);
+  }
+  .code-scroll::-webkit-scrollbar-thumb:hover { background: var(--slider-hover); }
+  .code-scroll::-webkit-scrollbar-thumb:active { background: var(--slider-active); }
+
+  .mock-status {
+    background: var(--status);
+    color: var(--mute);
+    display: flex; align-items: center; padding: 0 10px; gap: 10px;
+    font-size: 10px;
+  }
+  .st-remote {
+    background: var(--ind); color: var(--bg0);
+    padding: 2px 8px; border-radius: 2px; font-weight: 600;
+  }
+  .st-pill { color: var(--gold); }
+
+  .palette-block {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;
+  }
+  .chip {
+    background: #0A0F1C; border: 1px solid #242D47; border-radius: 4px;
+    padding: 6px 8px; display: flex; align-items: center; gap: 6px;
+    font-size: 10px;
+  }
+  .chip .sw { width: 14px; height: 14px; border-radius: 2px; flex-shrink: 0; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
+  .chip .nm { color: #E5E9F2; flex: 1; }
+  .chip .hx { color: #94A3B8; font-family: "SF Mono", monospace; font-size: 9.5px; }
+
+  .note {
+    max-width: 1700px; margin: 40px auto 0;
+    padding: 20px 24px; background: rgba(129,140,248,0.06);
+    border-left: 3px solid #D4B383;
+    border-radius: 4px; font-size: 13px; line-height: 1.6; color: #94A3B8;
+  }
+  .note strong { color: #F8FAFC; }
+</style></head><body>
+
+<header>
+  <h1>Soft Contrast Variant</h1>
+  <p class="tagline">
+    Compare the three Seyfert AGN variants. The <strong>Soft Contrast</strong>
+    column uses a ground lifted by two tonal stops, accents desaturated by ~15%,
+    and scrollbars pushed to ~72% opacity — unmistakable at a glance without
+    becoming visually loud. Scroll each mock editor to verify scrollbar visibility.
+  </p>
+</header>
+
+<div class="three-col">
+  
+    <div class="col variant-a">
+      <div class="col-header">
+        <div class="col-label">Primary</div>
+        <h3>Seyfert AGN</h3>
+      </div>
+      
+    <div class="mock" id="theme-0" style="
+         --bg: #0A0F1C;
+         --bg0: #060A14;
+         --bg2: #0E1424;
+         --line: #0E1424;
+         --fg: #E5E9F2;
+         --mute: #94A3B8;
+         --gold: #E5B867;
+         --ind: #818CF8;
+         --sel: #6366F138;
+         --cursor: #A5B4FC;
+         --slider: #6366F124;
+         --slider-hover: #6366F140;
+         --slider-active: #818CF866;
+         --border: #060A14;
+         --tab-fg: #F8FAFC;
+         --tab-inact-fg: #94A3B8;
+         --tab-inact-bg: #060A14;
+         --status: #0A0F1C;
+         --linenum: #3A4263;
+         --linenum-active: #A5B4FC;">
+      <div class="mock-tabs">
+        <div class="tab active"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="ts_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#A5B4FC" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#A5B4FC" stop-opacity="0.04"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#ts_g)" stroke="#A5B4FC" stroke-opacity="0.55" stroke-width="0.8"/>
+  <ellipse cx="8" cy="9.5" rx="5.2" ry="1.4" fill="none"
+           stroke="#A5B4FC" stroke-opacity="0.25" stroke-width="0.45"/>
+  <text x="8" y="9.9" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif"
+        font-size="7.2" font-weight="700" fill="#A5B4FC" letter-spacing="0.3">TS</text>
+</svg>
+</span>solve.ts<span class="close">●</span></div>
+        <div class="tab"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="tsx_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#A5B4FC" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#A5B4FC" stop-opacity="0.04"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#tsx_g)" stroke="#A5B4FC" stroke-opacity="0.55" stroke-width="0.8"/>
+  <text x="7" y="10" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif"
+        font-size="6.4" font-weight="700" fill="#A5B4FC" letter-spacing="0.2">TS</text>
+  <path d="M11.5 7.2 L12.1 8.4 L13.4 8.6 L12.45 9.55 L12.7 10.85 L11.5 10.25 L10.3 10.85 L10.55 9.55 L9.6 8.6 L10.9 8.4 Z"
+        fill="#F472B6" opacity="0.9"/>
+</svg>
+</span>Hero.tsx<span class="close">×</span></div>
+        <div class="tab"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="md_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#E5E9F2" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#E5E9F2" stop-opacity="0.03"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#md_g)" stroke="#E5E9F2" stroke-opacity="0.4" stroke-width="0.75"/>
+  <path d="M3.5 11 L12.5 11" stroke="#E5E9F2" stroke-opacity="0.55" stroke-width="0.6" stroke-linecap="round"/>
+  <circle cx="11.3" cy="5.4" r="0.7" fill="#E5B867" opacity="0.95"/>
+  <text x="7.4" y="9.4" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif"
+        font-size="5.8" font-weight="600" fill="#E5E9F2" letter-spacing="0.3">MD</text>
+</svg>
+</span>README.md<span class="close">×</span></div>
+      </div>
+      <div class="mock-editor">
+        <div class="code-scroll">
+<pre><span style="color:#5B6478;font-style:italic">// Seyfert AI · scheduling engine</span>
+<span style="color:#F472B6;font-weight:bold">import</span> { <span style="color:#7DD3FC">Technician</span>, <span style="color:#7DD3FC">Request</span> } <span style="color:#F472B6;font-weight:bold">from</span> <span style="color:#E5B867">'@seyfert/core'</span>;
+
+<span style="color:#F472B6;font-weight:bold">export</span> <span style="color:#F472B6;font-style:italic">async</span> <span style="color:#F472B6;font-style:italic">function</span> <span style="color:#A5B4FC">solve</span>(
+  <span style="color:#F5D8A3;font-style:italic">techs</span><span style="color:#5B6478">:</span> <span style="color:#7DD3FC">Technician</span>[],
+  <span style="color:#F5D8A3;font-style:italic">reqs</span><span style="color:#5B6478">:</span> <span style="color:#7DD3FC">Request</span>[],
+) {
+  <span style="color:#F472B6;font-weight:bold">const</span> <span style="color:#E5E9F2">maxIter</span> <span style="color:#5B6478">=</span> <span style="color:#C4B5FD">10_000</span>;
+  <span style="color:#F472B6;font-weight:bold">for</span> (<span style="color:#F472B6;font-weight:bold">let</span> <span style="color:#E5E9F2">i</span> <span style="color:#5B6478">=</span> <span style="color:#C4B5FD">0</span>; <span style="color:#E5E9F2">i</span> <span style="color:#5B6478">&lt;</span> <span style="color:#E5E9F2">maxIter</span>; <span style="color:#E5E9F2">i</span><span style="color:#5B6478">++</span>) {
+    <span style="color:#F472B6;font-weight:bold">const</span> <span style="color:#E5E9F2">result</span> <span style="color:#5B6478">=</span> <span style="color:#F472B6;font-weight:bold">await</span> <span style="color:#E5E9F2">propose</span>(<span style="color:#F5D8A3;font-style:italic">techs</span>);
+    <span style="color:#F472B6;font-weight:bold">if</span> (<span style="color:#E5E9F2">result</span>.<span style="color:#A5B4FC">cost</span> <span style="color:#5B6478">&lt;</span> <span style="color:#E5E9F2">best</span>) <span style="color:#E5E9F2">accept</span>(<span style="color:#E5E9F2">result</span>);
+  }
+  <span style="color:#F472B6;font-weight:bold">return</span> <span style="color:#E5E9F2">best</span>;
+}
+
+<span style="color:#5B6478;font-style:italic">// Long output to force a scrollbar ↓</span>
+<span style="color:#5B6478;font-style:italic">// line 15</span>
+<span style="color:#5B6478;font-style:italic">// line 16</span>
+<span style="color:#5B6478;font-style:italic">// line 17</span>
+<span style="color:#5B6478;font-style:italic">// line 18</span>
+<span style="color:#5B6478;font-style:italic">// line 19</span>
+<span style="color:#5B6478;font-style:italic">// line 20</span>
+<span style="color:#5B6478;font-style:italic">// line 21</span>
+<span style="color:#5B6478;font-style:italic">// line 22</span>
+<span style="color:#5B6478;font-style:italic">// line 23</span>
+<span style="color:#5B6478;font-style:italic">// line 24</span></pre>
+        </div>
+      </div>
+      <div class="mock-status">
+        <div class="st-remote">⏻ seyfert-site</div>
+        <div>⎇ main</div>
+        <div style="flex:1"></div>
+        <div class="st-pill">TypeScript ●</div>
+      </div>
+    </div>
+    
+      <div class="palette-block"><div class="chip"><span class="sw" style="background:#0A0F1C"></span><span class="nm">void.1</span><span class="hx">#0A0F1C</span></div><div class="chip"><span class="sw" style="background:#0E1424"></span><span class="nm">void.2</span><span class="hx">#0E1424</span></div><div class="chip"><span class="sw" style="background:#E5E9F2"></span><span class="nm">fg text</span><span class="hx">#E5E9F2</span></div><div class="chip"><span class="sw" style="background:#A5B4FC"></span><span class="nm">indigo-bright</span><span class="hx">#A5B4FC</span></div><div class="chip"><span class="sw" style="background:#E5B867"></span><span class="nm">AGN-gold</span><span class="hx">#E5B867</span></div><div class="chip"><span class="sw" style="background:#F472B6"></span><span class="nm">plasma pink</span><span class="hx">#F472B6</span></div><div class="chip"><span class="sw" style="background:#7DD3FC"></span><span class="nm">corona cyan</span><span class="hx">#7DD3FC</span></div><div class="chip"><span class="sw" style="background:#5B6478"></span><span class="nm">comment</span><span class="hx">#5B6478</span></div><div class="chip"><span class="sw" style="background:#6366F124"></span><span class="nm">scrollbar</span><span class="hx">#6366F124</span></div></div>
+    </div>
+    <div class="col variant-b">
+      <div class="col-header">
+        <div class="col-label">New</div>
+        <h3>Seyfert AGN — Soft Contrast</h3>
+      </div>
+      
+    <div class="mock" id="theme-1" style="
+         --bg: #141C30;
+         --bg0: #10172A;
+         --bg2: #1A2338;
+         --line: #212C47;
+         --fg: #DDE2ED;
+         --mute: #A8B2C6;
+         --gold: #D4B383;
+         --ind: #B6C0F0;
+         --sel: #9EA8F055;
+         --cursor: #EBD5B5;
+         --slider: #9EA8F0B8;
+         --slider-hover: #B6C0F0E0;
+         --slider-active: #D4B383FF;
+         --border: #10172A;
+         --tab-fg: #E8ECF5;
+         --tab-inact-fg: #A8B2C6;
+         --tab-inact-bg: #10172A;
+         --status: #141C30;
+         --linenum: #525C85;
+         --linenum-active: #EBD5B5;">
+      <div class="mock-tabs">
+        <div class="tab active"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="ts_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#A5B4FC" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#A5B4FC" stop-opacity="0.04"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#ts_g)" stroke="#A5B4FC" stroke-opacity="0.55" stroke-width="0.8"/>
+  <ellipse cx="8" cy="9.5" rx="5.2" ry="1.4" fill="none"
+           stroke="#A5B4FC" stroke-opacity="0.25" stroke-width="0.45"/>
+  <text x="8" y="9.9" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif"
+        font-size="7.2" font-weight="700" fill="#A5B4FC" letter-spacing="0.3">TS</text>
+</svg>
+</span>solve.ts<span class="close">●</span></div>
+        <div class="tab"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="tsx_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#A5B4FC" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#A5B4FC" stop-opacity="0.04"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#tsx_g)" stroke="#A5B4FC" stroke-opacity="0.55" stroke-width="0.8"/>
+  <text x="7" y="10" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif"
+        font-size="6.4" font-weight="700" fill="#A5B4FC" letter-spacing="0.2">TS</text>
+  <path d="M11.5 7.2 L12.1 8.4 L13.4 8.6 L12.45 9.55 L12.7 10.85 L11.5 10.25 L10.3 10.85 L10.55 9.55 L9.6 8.6 L10.9 8.4 Z"
+        fill="#F472B6" opacity="0.9"/>
+</svg>
+</span>Hero.tsx<span class="close">×</span></div>
+        <div class="tab"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="md_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#E5E9F2" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#E5E9F2" stop-opacity="0.03"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#md_g)" stroke="#E5E9F2" stroke-opacity="0.4" stroke-width="0.75"/>
+  <path d="M3.5 11 L12.5 11" stroke="#E5E9F2" stroke-opacity="0.55" stroke-width="0.6" stroke-linecap="round"/>
+  <circle cx="11.3" cy="5.4" r="0.7" fill="#E5B867" opacity="0.95"/>
+  <text x="7.4" y="9.4" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif"
+        font-size="5.8" font-weight="600" fill="#E5E9F2" letter-spacing="0.3">MD</text>
+</svg>
+</span>README.md<span class="close">×</span></div>
+      </div>
+      <div class="mock-editor">
+        <div class="code-scroll">
+<pre><span style="color:#7F889C;font-style:italic">// Seyfert AI · scheduling engine</span>
+<span style="color:#E89AC0;font-weight:bold">import</span> { <span style="color:#9BD1EC">Technician</span>, <span style="color:#9BD1EC">Request</span> } <span style="color:#E89AC0;font-weight:bold">from</span> <span style="color:#D4B383">'@seyfert/core'</span>;
+
+<span style="color:#E89AC0;font-weight:bold">export</span> <span style="color:#E89AC0;font-style:italic">async</span> <span style="color:#E89AC0;font-style:italic">function</span> <span style="color:#B6C0F0">solve</span>(
+  <span style="color:#EBD5B5;font-style:italic">techs</span><span style="color:#7F889C">:</span> <span style="color:#9BD1EC">Technician</span>[],
+  <span style="color:#EBD5B5;font-style:italic">reqs</span><span style="color:#7F889C">:</span> <span style="color:#9BD1EC">Request</span>[],
+) {
+  <span style="color:#E89AC0;font-weight:bold">const</span> <span style="color:#DDE2ED">maxIter</span> <span style="color:#7F889C">=</span> <span style="color:#CCC3EF">10_000</span>;
+  <span style="color:#E89AC0;font-weight:bold">for</span> (<span style="color:#E89AC0;font-weight:bold">let</span> <span style="color:#DDE2ED">i</span> <span style="color:#7F889C">=</span> <span style="color:#CCC3EF">0</span>; <span style="color:#DDE2ED">i</span> <span style="color:#7F889C">&lt;</span> <span style="color:#DDE2ED">maxIter</span>; <span style="color:#DDE2ED">i</span><span style="color:#7F889C">++</span>) {
+    <span style="color:#E89AC0;font-weight:bold">const</span> <span style="color:#DDE2ED">result</span> <span style="color:#7F889C">=</span> <span style="color:#E89AC0;font-weight:bold">await</span> <span style="color:#DDE2ED">propose</span>(<span style="color:#EBD5B5;font-style:italic">techs</span>);
+    <span style="color:#E89AC0;font-weight:bold">if</span> (<span style="color:#DDE2ED">result</span>.<span style="color:#B6C0F0">cost</span> <span style="color:#7F889C">&lt;</span> <span style="color:#DDE2ED">best</span>) <span style="color:#DDE2ED">accept</span>(<span style="color:#DDE2ED">result</span>);
+  }
+  <span style="color:#E89AC0;font-weight:bold">return</span> <span style="color:#DDE2ED">best</span>;
+}
+
+<span style="color:#7F889C;font-style:italic">// Long output to force a scrollbar ↓</span>
+<span style="color:#7F889C;font-style:italic">// line 15</span>
+<span style="color:#7F889C;font-style:italic">// line 16</span>
+<span style="color:#7F889C;font-style:italic">// line 17</span>
+<span style="color:#7F889C;font-style:italic">// line 18</span>
+<span style="color:#7F889C;font-style:italic">// line 19</span>
+<span style="color:#7F889C;font-style:italic">// line 20</span>
+<span style="color:#7F889C;font-style:italic">// line 21</span>
+<span style="color:#7F889C;font-style:italic">// line 22</span>
+<span style="color:#7F889C;font-style:italic">// line 23</span>
+<span style="color:#7F889C;font-style:italic">// line 24</span></pre>
+        </div>
+      </div>
+      <div class="mock-status">
+        <div class="st-remote">⏻ seyfert-site</div>
+        <div>⎇ main</div>
+        <div style="flex:1"></div>
+        <div class="st-pill">TypeScript ●</div>
+      </div>
+    </div>
+    
+      <div class="palette-block"><div class="chip"><span class="sw" style="background:#141C30"></span><span class="nm">void.1 ↑</span><span class="hx">#141C30</span></div><div class="chip"><span class="sw" style="background:#1A2338"></span><span class="nm">void.2 ↑</span><span class="hx">#1A2338</span></div><div class="chip"><span class="sw" style="background:#DDE2ED"></span><span class="nm">fg warmed</span><span class="hx">#DDE2ED</span></div><div class="chip"><span class="sw" style="background:#B6C0F0"></span><span class="nm">indigo soft</span><span class="hx">#B6C0F0</span></div><div class="chip"><span class="sw" style="background:#D4B383"></span><span class="nm">AGN amber</span><span class="hx">#D4B383</span></div><div class="chip"><span class="sw" style="background:#E89AC0"></span><span class="nm">pink soft</span><span class="hx">#E89AC0</span></div><div class="chip"><span class="sw" style="background:#9BD1EC"></span><span class="nm">cyan soft</span><span class="hx">#9BD1EC</span></div><div class="chip"><span class="sw" style="background:#7F889C"></span><span class="nm">comment ↑</span><span class="hx">#7F889C</span></div><div class="chip"><span class="sw" style="background:#9EA8F0B8"></span><span class="nm">scrollbar ↑↑</span><span class="hx">#9EA8F0B8</span></div></div>
+    </div>
+    <div class="col variant-c">
+      <div class="col-header">
+        <div class="col-label">Variant</div>
+        <h3>Seyfert AGN — High Contrast</h3>
+      </div>
+      
+    <div class="mock" id="theme-2" style="
+         --bg: #05080F;
+         --bg0: #030508;
+         --bg2: #05080F;
+         --line: #0B1120;
+         --fg: #F8FAFC;
+         --mute: #B8C2D6;
+         --gold: #E5B867;
+         --ind: #818CF8;
+         --sel: #6366F166;
+         --cursor: #F5D8A3;
+         --slider: #6366F140;
+         --slider-hover: #6366F166;
+         --slider-active: #818CF899;
+         --border: #060A14;
+         --tab-fg: #F8FAFC;
+         --tab-inact-fg: #B8C2D6;
+         --tab-inact-bg: #030508;
+         --status: #05080F;
+         --linenum: #5B6478;
+         --linenum-active: #F5D8A3;">
+      <div class="mock-tabs">
+        <div class="tab active"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="ts_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#A5B4FC" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#A5B4FC" stop-opacity="0.04"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#ts_g)" stroke="#A5B4FC" stroke-opacity="0.55" stroke-width="0.8"/>
+  <ellipse cx="8" cy="9.5" rx="5.2" ry="1.4" fill="none"
+           stroke="#A5B4FC" stroke-opacity="0.25" stroke-width="0.45"/>
+  <text x="8" y="9.9" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif"
+        font-size="7.2" font-weight="700" fill="#A5B4FC" letter-spacing="0.3">TS</text>
+</svg>
+</span>solve.ts<span class="close">●</span></div>
+        <div class="tab"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="tsx_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#A5B4FC" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#A5B4FC" stop-opacity="0.04"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#tsx_g)" stroke="#A5B4FC" stroke-opacity="0.55" stroke-width="0.8"/>
+  <text x="7" y="10" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif"
+        font-size="6.4" font-weight="700" fill="#A5B4FC" letter-spacing="0.2">TS</text>
+  <path d="M11.5 7.2 L12.1 8.4 L13.4 8.6 L12.45 9.55 L12.7 10.85 L11.5 10.25 L10.3 10.85 L10.55 9.55 L9.6 8.6 L10.9 8.4 Z"
+        fill="#F472B6" opacity="0.9"/>
+</svg>
+</span>Hero.tsx<span class="close">×</span></div>
+        <div class="tab"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="md_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#E5E9F2" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#E5E9F2" stop-opacity="0.03"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#md_g)" stroke="#E5E9F2" stroke-opacity="0.4" stroke-width="0.75"/>
+  <path d="M3.5 11 L12.5 11" stroke="#E5E9F2" stroke-opacity="0.55" stroke-width="0.6" stroke-linecap="round"/>
+  <circle cx="11.3" cy="5.4" r="0.7" fill="#E5B867" opacity="0.95"/>
+  <text x="7.4" y="9.4" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif"
+        font-size="5.8" font-weight="600" fill="#E5E9F2" letter-spacing="0.3">MD</text>
+</svg>
+</span>README.md<span class="close">×</span></div>
+      </div>
+      <div class="mock-editor">
+        <div class="code-scroll">
+<pre><span style="color:#7B869B;font-style:italic">// Seyfert AI · scheduling engine</span>
+<span style="color:#F472B6;font-weight:bold">import</span> { <span style="color:#7DD3FC">Technician</span>, <span style="color:#7DD3FC">Request</span> } <span style="color:#F472B6;font-weight:bold">from</span> <span style="color:#E5B867">'@seyfert/core'</span>;
+
+<span style="color:#F472B6;font-weight:bold">export</span> <span style="color:#F472B6;font-style:italic">async</span> <span style="color:#F472B6;font-style:italic">function</span> <span style="color:#A5B4FC">solve</span>(
+  <span style="color:#FCE2A6;font-style:italic">techs</span><span style="color:#7B869B">:</span> <span style="color:#7DD3FC">Technician</span>[],
+  <span style="color:#FCE2A6;font-style:italic">reqs</span><span style="color:#7B869B">:</span> <span style="color:#7DD3FC">Request</span>[],
+) {
+  <span style="color:#F472B6;font-weight:bold">const</span> <span style="color:#F8FAFC">maxIter</span> <span style="color:#7B869B">=</span> <span style="color:#C4B5FD">10_000</span>;
+  <span style="color:#F472B6;font-weight:bold">for</span> (<span style="color:#F472B6;font-weight:bold">let</span> <span style="color:#F8FAFC">i</span> <span style="color:#7B869B">=</span> <span style="color:#C4B5FD">0</span>; <span style="color:#F8FAFC">i</span> <span style="color:#7B869B">&lt;</span> <span style="color:#F8FAFC">maxIter</span>; <span style="color:#F8FAFC">i</span><span style="color:#7B869B">++</span>) {
+    <span style="color:#F472B6;font-weight:bold">const</span> <span style="color:#F8FAFC">result</span> <span style="color:#7B869B">=</span> <span style="color:#F472B6;font-weight:bold">await</span> <span style="color:#F8FAFC">propose</span>(<span style="color:#FCE2A6;font-style:italic">techs</span>);
+    <span style="color:#F472B6;font-weight:bold">if</span> (<span style="color:#F8FAFC">result</span>.<span style="color:#A5B4FC">cost</span> <span style="color:#7B869B">&lt;</span> <span style="color:#F8FAFC">best</span>) <span style="color:#F8FAFC">accept</span>(<span style="color:#F8FAFC">result</span>);
+  }
+  <span style="color:#F472B6;font-weight:bold">return</span> <span style="color:#F8FAFC">best</span>;
+}
+
+<span style="color:#7B869B;font-style:italic">// Long output to force a scrollbar ↓</span>
+<span style="color:#7B869B;font-style:italic">// line 15</span>
+<span style="color:#7B869B;font-style:italic">// line 16</span>
+<span style="color:#7B869B;font-style:italic">// line 17</span>
+<span style="color:#7B869B;font-style:italic">// line 18</span>
+<span style="color:#7B869B;font-style:italic">// line 19</span>
+<span style="color:#7B869B;font-style:italic">// line 20</span>
+<span style="color:#7B869B;font-style:italic">// line 21</span>
+<span style="color:#7B869B;font-style:italic">// line 22</span>
+<span style="color:#7B869B;font-style:italic">// line 23</span>
+<span style="color:#7B869B;font-style:italic">// line 24</span></pre>
+        </div>
+      </div>
+      <div class="mock-status">
+        <div class="st-remote">⏻ seyfert-site</div>
+        <div>⎇ main</div>
+        <div style="flex:1"></div>
+        <div class="st-pill">TypeScript ●</div>
+      </div>
+    </div>
+    
+      <div class="palette-block"><div class="chip"><span class="sw" style="background:#05080F"></span><span class="nm">void ↓</span><span class="hx">#05080F</span></div><div class="chip"><span class="sw" style="background:#05080F"></span><span class="nm">void.2 ↓</span><span class="hx">#05080F</span></div><div class="chip"><span class="sw" style="background:#F8FAFC"></span><span class="nm">pure white</span><span class="hx">#F8FAFC</span></div><div class="chip"><span class="sw" style="background:#A5B4FC"></span><span class="nm">indigo-bright</span><span class="hx">#A5B4FC</span></div><div class="chip"><span class="sw" style="background:#E5B867"></span><span class="nm">AGN-gold</span><span class="hx">#E5B867</span></div><div class="chip"><span class="sw" style="background:#F472B6"></span><span class="nm">plasma pink</span><span class="hx">#F472B6</span></div><div class="chip"><span class="sw" style="background:#7DD3FC"></span><span class="nm">corona cyan</span><span class="hx">#7DD3FC</span></div><div class="chip"><span class="sw" style="background:#7B869B"></span><span class="nm">comment lift</span><span class="hx">#7B869B</span></div><div class="chip"><span class="sw" style="background:#6366F140"></span><span class="nm">scrollbar+</span><span class="hx">#6366F140</span></div></div>
+    </div>
+</div>
+
+<div class="note">
+  <p><strong>Eye-strain strategy:</strong> the Soft Contrast variant reduces the
+  two biggest sources of dark-theme fatigue — extreme luminance contrast between
+  pure-black backgrounds and pure-white text, and over-saturated accent colors.
+  The ground is lifted to #141C30 (grey-indigo), foreground is warmed to #DDE2ED
+  (not pure white), and every accent is pulled ~15% off its base chroma.
+  AGN-gold becomes warmer amber, plasma pink softens toward rose, cyan toward
+  sky, but hue identity is preserved so the theme still reads as Seyfert AGN.</p>
+
+  <p><strong>Scrollbar visibility:</strong> the thumb uses indigo-light at 72%
+  opacity (base theme used 14%). On hover it lifts to 88%. When dragging it
+  flips to full-opacity AGN-gold — the sacred color surfaces at the moment of
+  active interaction. Same gesture as a modified-file indicator.</p>
+</div>
+
+</body></html>

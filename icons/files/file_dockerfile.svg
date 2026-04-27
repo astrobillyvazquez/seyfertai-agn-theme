@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="dk_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#7DD3FC" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#7DD3FC" stop-opacity="0.04"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#dk_g)" stroke="#7DD3FC" stroke-opacity="0.55" stroke-width="0.75"/>
+  <g fill="#7DD3FC" fill-opacity="0.9">
+    <rect x="3.4" y="7.8" width="1.6" height="1.6" rx="0.2"/>
+    <rect x="5.2" y="7.8" width="1.6" height="1.6" rx="0.2"/>
+    <rect x="7.0" y="7.8" width="1.6" height="1.6" rx="0.2"/>
+    <rect x="5.2" y="6.0" width="1.6" height="1.6" rx="0.2"/>
+    <rect x="7.0" y="6.0" width="1.6" height="1.6" rx="0.2"/>
+    <rect x="7.0" y="4.2" width="1.6" height="1.6" rx="0.2"/>
+  </g>
+  <path d="M3 10 Q4 11.5 6 11.5 L10 11.5 Q12.5 11.5 13.2 9.5 Q12 10 10.5 9.8"
+        fill="none" stroke="#7DD3FC" stroke-width="0.7" stroke-linecap="round" stroke-opacity="0.85"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <linearGradient id="fg_coral" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FB7185" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#FB7185" stop-opacity="0.08"/>
+    </linearGradient>
+  </defs>
+  <path d="M1.5 5.4 Q1.5 4 2.9 4 L6.1 4 L7.6 5.4 L13.1 5.4 Q14.5 5.4 14.5 6.8 L14.5 12.1 Q14.5 13.5 13.1 13.5 L2.9 13.5 Q1.5 13.5 1.5 12.1 Z"
+        fill="url(#fg_coral)" stroke="#FB7185" stroke-opacity="0.85" stroke-width="0.9" stroke-linejoin="round"/>
+  <path d="M2.5 8.2 L13.5 8.2" stroke="#FB7185" stroke-opacity="0.3" stroke-width="0.45"/>
+  <circle cx="12.2" cy="11.2" r="0.55" fill="#FB7185" opacity="0.55"/>
+</svg>

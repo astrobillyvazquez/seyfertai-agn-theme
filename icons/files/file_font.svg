@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="ft_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#E5B867" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#E5B867" stop-opacity="0.04"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#ft_g)" stroke="#E5B867" stroke-opacity="0.55" stroke-width="0.75"/>
+  <text x="8" y="12" text-anchor="middle" font-family="Georgia,serif"
+        font-size="10.5" font-weight="600" font-style="italic" fill="#E5B867">Aa</text>
+</svg>

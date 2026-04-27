@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="md_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#E5E9F2" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#E5E9F2" stop-opacity="0.03"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#md_g)" stroke="#E5E9F2" stroke-opacity="0.4" stroke-width="0.75"/>
+  <path d="M3.5 11 L12.5 11" stroke="#E5E9F2" stroke-opacity="0.55" stroke-width="0.6" stroke-linecap="round"/>
+  <circle cx="11.3" cy="5.4" r="0.7" fill="#E5B867" opacity="0.95"/>
+  <text x="7.4" y="9.4" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif"
+        font-size="5.8" font-weight="600" fill="#E5E9F2" letter-spacing="0.3">MD</text>
+</svg>

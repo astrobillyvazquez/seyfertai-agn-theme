@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="pd_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FB7185" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#FB7185" stop-opacity="0.04"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#pd_g)" stroke="#FB7185" stroke-opacity="0.5" stroke-width="0.75"/>
+  <path d="M4.5 3.5 L10 3.5 L12.3 5.8 L12.3 12.5 L4.5 12.5 Z"
+        fill="#FB7185" fill-opacity="0.08" stroke="#FB7185" stroke-opacity="0.85" stroke-width="0.7" stroke-linejoin="round"/>
+  <path d="M10 3.5 L10 5.8 L12.3 5.8" fill="none" stroke="#FB7185" stroke-opacity="0.85" stroke-width="0.6"/>
+  <text x="8.3" y="10.8" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif"
+        font-size="3.2" font-weight="700" fill="#FB7185" letter-spacing="0.1">PDF</text>
+</svg>

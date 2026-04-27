@@ -1,0 +1,62 @@
+{
+  "name": "seyfert-agn",
+  "displayName": "Seyfert AGN",
+  "description": "An elite dark theme & icon system for VS Code — Monokai's contrast architecture, reimagined through the deep-space palette of Seyfert AI. Named for the Active Galactic Nuclei at the heart of Seyfert galaxies.",
+  "version": "1.1.0",
+  "publisher": "seyfert-ai",
+  "author": {
+    "name": "Seyfert AI",
+    "email": "bvazquez@seyfertai.com"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "dark",
+    "monokai",
+    "theme",
+    "icons",
+    "seyfert",
+    "space",
+    "indigo",
+    "premium"
+  ],
+  "galleryBanner": {
+    "color": "#0A0F1C",
+    "theme": "dark"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Seyfert AGN",
+        "uiTheme": "vs-dark",
+        "path": "./themes/seyfert-agn-color-theme.json"
+      },
+      {
+        "label": "Seyfert AGN — High Contrast",
+        "uiTheme": "vs-dark",
+        "path": "./themes/seyfert-agn-contrast-color-theme.json"
+      },
+      {
+        "label": "Seyfert AGN — Soft Contrast",
+        "uiTheme": "vs-dark",
+        "path": "./themes/seyfert-agn-soft-color-theme.json"
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "seyfert-agn-icons",
+        "label": "Seyfert AGN — Accretion Icons",
+        "path": "./icons/seyfert-agn-icon-theme.json"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seyfert-ai/seyfert-agn-theme"
+  }
+}

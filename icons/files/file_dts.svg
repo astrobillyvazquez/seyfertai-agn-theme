@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <defs>
+    <radialGradient id="dt_g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#7DD3FC" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#7DD3FC" stop-opacity="0.04"/>
+    </radialGradient>
+  </defs>
+  <rect x="1.25" y="1.25" width="13.5" height="13.5" rx="2.4"
+        fill="url(#dt_g)" stroke="#7DD3FC" stroke-opacity="0.55" stroke-width="0.75"/>
+  <path d="M3 5.5 L3 4 L13 4 L13 5.5 M3 4 L3 12 M13 4 L13 12" fill="none" stroke="#7DD3FC" stroke-opacity="0.35" stroke-width="0.5"/>
+  <text x="8" y="11" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif"
+        font-size="7" font-weight="700" fill="#7DD3FC">T</text>
+</svg>

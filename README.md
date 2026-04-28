@@ -14,6 +14,7 @@ Named after Seyfert galaxies — the class of galaxy characterized by an Active 
 - **Seyfert AGN — High Contrast** — lifted-foreground variant for presentations and code review
 - **Seyfert AGN — Soft Contrast** — relaxed, reduced-eye-strain variant with lifted ground, desaturated accents, and high-visibility scrollbars
 - **Accretion Icons** — 148-glyph file + folder icon theme
+- **Full signal coverage** — git state, problem severity, test results, inlay hints, lightbulb, and AI ghost-text are all palette-mapped across every variant (v1.1.1+)
 
 ## Install
 
@@ -25,7 +26,7 @@ cd seyfert-agn
 npx @vscode/vsce package
 
 # Then install the resulting .vsix:
-code --install-extension seyfert-agn-1.0.0.vsix
+code --install-extension seyfert-agn-1.1.1.vsix
 ```
 
 ### Side-load for development
